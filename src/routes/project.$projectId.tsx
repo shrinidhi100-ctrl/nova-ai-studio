@@ -311,7 +311,7 @@ function Studio() {
 
         {/* Chat */}
         <section className="flex min-h-0 flex-col border-r border-border/50">
-          <ScrollArea className="min-h-0 flex-1" viewportRef={scrollRef}>
+          <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto">
             <div className="mx-auto max-w-2xl space-y-5 px-4 py-6">
               {messages.length === 0 && (
                 <div className="glass rounded-2xl p-6">
@@ -356,7 +356,7 @@ function Studio() {
                 </div>
               )}
             </div>
-          </ScrollArea>
+          </div>
 
           <div className="border-t border-border/50 p-3">
             <div className="glass flex items-end gap-2 rounded-2xl p-2">
