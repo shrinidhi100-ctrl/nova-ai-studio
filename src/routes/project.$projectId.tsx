@@ -7,8 +7,10 @@ import remarkGfm from "remark-gfm";
 import { toast } from "sonner";
 import {
   ArrowUp,
+  Check,
   ChevronRight,
   Code2,
+  Copy,
   Eye,
   File as FileIcon,
   Folder,
