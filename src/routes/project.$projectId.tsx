@@ -417,10 +417,13 @@ function Studio() {
             </span>
             <div className="ml-auto flex items-center gap-1.5">
               {tab === "code" && activeFile && (
-                <Button size="sm" variant="glass" onClick={saveActive} disabled={saving}>
-                  {saving ? <Loader2 className="size-3.5 animate-spin" /> : <Save className="size-3.5" />}
-                  Save
-                </Button>
+                <>
+                  <CopyButton value={activeFile.content} />
+                  <Button size="sm" variant="glass" onClick={saveActive} disabled={saving}>
+                    {saving ? <Loader2 className="size-3.5 animate-spin" /> : <Save className="size-3.5" />}
+                    Save
+                  </Button>
+                </>
               )}
               <Button
                 size="sm"
