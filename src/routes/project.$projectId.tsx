@@ -21,6 +21,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { AppHeader, RequireAuth } from "@/components/nova/AppChrome";
 import { CodeEditor } from "@/components/nova/CodeEditor";
+import { CopyButton } from "@/components/nova/CopyButton";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -415,10 +416,13 @@ function Studio() {
             </span>
             <div className="ml-auto flex items-center gap-1.5">
               {tab === "code" && activeFile && (
-                <Button size="sm" variant="glass" onClick={saveActive} disabled={saving}>
-                  {saving ? <Loader2 className="size-3.5 animate-spin" /> : <Save className="size-3.5" />}
-                  Save
-                </Button>
+                <>
+                  <CopyButton value={activeFile.content} />
+                  <Button size="sm" variant="glass" onClick={saveActive} disabled={saving}>
+                    {saving ? <Loader2 className="size-3.5 animate-spin" /> : <Save className="size-3.5" />}
+                    Save
+                  </Button>
+                </>
               )}
               <Button
                 size="sm"
