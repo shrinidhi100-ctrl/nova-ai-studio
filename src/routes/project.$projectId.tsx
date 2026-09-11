@@ -449,6 +449,9 @@ function Studio() {
                   </Button>
                 </>
               )}
+              <Button size="sm" variant="glass" onClick={downloadAll} disabled={files.length === 0}>
+                <Download className="size-3.5" /> Download
+              </Button>
               <Button
                 size="sm"
                 variant="hero"
