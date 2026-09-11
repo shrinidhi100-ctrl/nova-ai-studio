@@ -5,10 +5,12 @@ import { DefaultChatTransport } from "ai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { toast } from "sonner";
+import JSZip from "jszip";
 import {
   ArrowUp,
   ChevronRight,
   Code2,
+  Download,
   Eye,
   File as FileIcon,
   Folder,
@@ -257,6 +259,29 @@ function Studio() {
     else toast.success("Saved");
   }
 
+  async function downloadAll() {
+    if (files.length === 0) {
+      toast.error("No files to download");
+      return;
+    }
+    const zip = new JSZip();
+    const folder = zip.folder(projectName.replace(/\s+/g, "_").toLowerCase());
+    if (!folder) return;
+    for (const file of files) {
+      folder.file(file.path, file.content);
+    }
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${projectName.replace(/\s+/g, "_").toLowerCase()}.zip`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success("Project downloaded");
+  }
+
   function submit() {
     const text = input.trim();
     if (!text || busy) return;
@@ -424,6 +449,9 @@ function Studio() {
                   </Button>
                 </>
               )}
+              <Button size="sm" variant="glass" onClick={downloadAll} disabled={files.length === 0}>
+                <Download className="size-3.5" /> Download
+              </Button>
               <Button
                 size="sm"
                 variant="hero"
